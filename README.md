@@ -1,2 +1,19 @@
 # OptiVideoEditor-for-Android
-Native Video editor : Video trim, Audio, Video merge, Slow and fast motion, Text and image, etc...
+
+# About
+
+# Features
+
+. Video trim
+
+. Audio
+
+. Video merge
+
+. Slow and fast motion
+
+. Video transition
+
+. Text and image
+
+. Filters
