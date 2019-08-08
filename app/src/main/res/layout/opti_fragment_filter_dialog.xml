@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /*
+  ~ * Created by Optisol on Aug 2019.
+  ~ * Copyright © 2019 Optisol Business Solutions pvt ltd. All rights reserved.
+  ~ * */
+  -->
+
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+        <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                app:srcCompat="@drawable/ic_baseline_close_24px"
+                android:tint="@color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="@string/app_name"/>
+
+        <ImageView
+                android:id="@+id/iv_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                app:srcCompat="@drawable/ic_baseline_done_24px"
+                android:tint="@color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/app_name"/>
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvFilter"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_close"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.design.widget.CoordinatorLayout>

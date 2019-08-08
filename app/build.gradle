@@ -1,0 +1,69 @@
+/*
+ *
+ *  Created by Optisol on Aug 2019.
+ *  Copyright © 2019 Optisol Business Solutions pvt ltd. All rights reserved.
+ *
+ */
+
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion compileSdk
+    defaultConfig {
+        applicationId "com.obs.videoeditor"
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinVersion}"
+
+    implementation "com.android.support:appcompat-v7:${appCompat}"
+    implementation "com.android.support.constraint:constraint-layout:${constraint}"
+    implementation "com.android.support:design:${appCompat}"
+
+    //exoplayer
+    implementation "com.google.android.exoplayer:exoplayer-core:${exoPlayerCore}"
+    implementation "com.google.android.exoplayer:exoplayer-dash:${exoPlayer}"
+    implementation "com.google.android.exoplayer:exoplayer-ui:${exoPlayer}"
+
+    //ffmpeg
+    implementation "com.writingminds:FFmpegAndroid:${FFmpeg}"
+    implementation "org.jcodec:jcodec-android:${jcodec}"
+
+    //seekbar
+    implementation "com.github.guilhe:seekbar-ranged-view:${seekbar}"
+
+    //textSize
+    implementation "com.intuit.sdp:sdp-android:${sdpSize}"
+
+    //GlideToast
+    implementation "com.github.imjeevandeshmukh:GlideToast:${GlideToast}"
+
+    //fresco
+    implementation "com.facebook.fresco:fresco:${fresco}"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

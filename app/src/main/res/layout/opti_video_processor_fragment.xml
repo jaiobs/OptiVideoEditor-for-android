@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /*
+  ~ * Created by Optisol on Aug 2019.
+  ~ * Copyright © 2019 Optisol Business Solutions pvt ltd. All rights reserved.
+  ~ * */
+  -->
+
+<android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@color/black">
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <include
+                layout="@layout/opti_view_top_bar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/exoPlayer"/>
+
+        <include
+                android:id="@+id/exoPlayer"
+                layout="@layout/opti_layout_custom_exo_player"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_250sdp"
+                android:layout_marginTop="?android:attr/actionBarSize"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/rvVideoOptions"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/exoPlayer">
+
+            <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:visibility="invisible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:indeterminateTintMode="src_in"
+                    android:progressBackgroundTint="@color/light_blue"
+                    android:indeterminateTint="@color/blue"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    style="?android:attr/progressBarStyleHorizontal"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tvVideoProcessing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:visibility="invisible"
+                    android:text="@string/processing_video"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvVideoOptions"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_160sdp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <android.support.constraint.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline"
+                app:layout_constraintGuide_percent="0.9"
+                android:orientation="horizontal"/>
+
+        <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/video_gallery_24"
+                android:background="@color/black"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/guideline"
+                app:layout_constraintEnd_toStartOf="@+id/ibCamera"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/ibGallery"
+                android:contentDescription="@string/app_name"/>
+
+        <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/video_camera_24"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/guideline"
+                app:layout_constraintStart_toEndOf="@+id/ibGallery"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/ibCamera"
+                android:contentDescription="@string/app_name"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

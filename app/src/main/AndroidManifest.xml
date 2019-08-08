@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /*
+  ~ * Created by Optisol on Aug 2019.
+  ~ * Copyright © 2019 Optisol Business Solutions pvt ltd. All rights reserved.
+  ~ * */
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+          package="com.obs.videoeditor">
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+                     tools:node="replace"/>
+    <uses-permission android:name="com.android.providers.media.MediaProvider"/>
+
+    <application
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            tools:replace="android:appComponentFactory"
+            android:appComponentFactory="whateverString"
+            android:allowBackup="false">
+
+        <!--OptiSplashScreen-->
+        <activity android:name="com.obs.videoeditor.OptiSplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!--MainActivity-->
+        <activity android:name="com.obs.videoeditor.MainActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
+
+        <!--OptiTrimmerActivity-->
+        <activity android:name="com.obs.videoeditor.OptiTrimmerActivity"
+                  android:screenOrientation="portrait"
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
+
+        <!--FileProvider-->
+        <provider
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="${applicationId}.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths"/>
+        </provider>
+
+    </application>
+</manifest>

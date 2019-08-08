@@ -1,0 +1,47 @@
+<!--
+  ~ /*
+  ~ * Created by Optisol on Aug 2019.
+  ~ * Copyright © 2019 Optisol Business Solutions pvt ltd. All rights reserved.
+  ~ * */
+  -->
+
+<resources>
+    <string name="app_name">VideoEditor</string>
+
+    <string name="video_editing">VideoEditor</string>
+    <string name="save">Save</string>
+    <string name="crop">Crop</string>
+    <string name="trimming_video">Trimming Video.....</string>
+    <string name="processing_video">Processing Video</string>
+    <string name="video_1">Video 1</string>
+    <string name="video_2">Video 2</string>
+    <string name="select_music">Select music</string>
+    <string name="label">Label</string>
+
+    <string name="error_filter">Select the video which you want to add filter animation</string>
+    <string name="error_crop">Select the video which you want to add crop</string>
+    <string name="error_music">Select the video which you want to merge the audio</string>
+    <string name="error_speed">Select the video which you want to add speed animation</string>
+    <string name="error_text">Select the video which you want to add text inside video</string>
+    <string name="error_sticker">Select the video which you want to add sticker inside video</string>
+    <string name="error_merge">Select 2 videos which you want to merge</string>
+    <string name="error_transition">Select the video which you want to perform transition</string>
+
+    <string name="error_select_sticker">Select the sticker which you want to show inside the video</string>
+    <string name="error_select_sticker_pos">Select the position where you want to show the sticker</string>
+    <string name="error_add_text">Add the text which you want to show inside the video</string>
+    <string name="error_add_text_pos">Select the position where you want to show the text</string>
+    <string name="error_select_speed">Select the playback speed which you want to apply to the video</string>
+    <string name="error_select_filter">Select the filter which you want to apply to the video</string>
+    <string name="error_select_smaller_video">Select the video smaller than 4 minutes</string>
+    <string name="play_time">Play Time</string>
+    <string name="enter_text_here">Enter text here</string>
+
+    <string name="video_saved_at">Video saves at : $%1s</string>
+    <string name="short_seconds">sec</string>
+    <string name="megabyte">MB</string>
+    <string name="kilobyte">KB</string>
+    <string name="trimming_progress">Trimming your video...</string>
+    <string name="cancel">Cancel</string>
+</resources>
+
