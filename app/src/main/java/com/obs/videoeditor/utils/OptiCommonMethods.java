@@ -10,6 +10,7 @@ package com.obs.videoeditor.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.*;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Log;
@@ -31,7 +32,7 @@ public class OptiCommonMethods {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        FileInputStream in = null;
+        FileInputStream in;
         try {
             in = videoAsset.createInputStream();
 

@@ -60,7 +60,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.CallBacks, OptiVideoOptionListener,
-    OptiFFMpegCallback {
+    OptiFFMpegCallback  {
 
     private var tagName: String = OptiMasterProcessorFragment::class.java.simpleName
     private lateinit var rootView: View
@@ -267,6 +267,7 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
                 context!!,
                 "com.obs.videoeditor.provider", videoFile!!
             )
+            cameraIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 240) //4 minutes
             cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1)
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoFile)
             startActivityForResult(cameraIntent, OptiConstant.RECORD_VIDEO)
@@ -292,53 +293,98 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
 
         if (sessionManager.isFirstTime(activity!!)) {
             OptiUtils.copyFileToInternalStorage(
-                R.drawable.bookmark_64,
-                "bookmark",
+                R.drawable.sticker_1,
+                "sticker_1",
                 context!!
             )
             OptiUtils.copyFileToInternalStorage(
-                R.drawable.reddit_64,
-                "reddit",
+                R.drawable.sticker_2,
+                "sticker_2",
                 context!!
             )
             OptiUtils.copyFileToInternalStorage(
-                R.drawable.babys_room_64,
-                "babys_room",
+                R.drawable.sticker_3,
+                "sticker_3",
                 context!!
             )
             OptiUtils.copyFileToInternalStorage(
-                R.drawable.face_smile_64,
-                "face_smile",
+                R.drawable.sticker_4,
+                "sticker_4",
                 context!!
             )
             OptiUtils.copyFileToInternalStorage(
-                R.drawable.heart_64,
-                "heart",
+                R.drawable.sticker_5,
+                "sticker_5",
                 context!!
             )
             OptiUtils.copyFileToInternalStorage(
-                R.drawable.heart_balloon_64,
-                "heart_balloon",
+                R.drawable.sticker_6,
+                "sticker_6",
                 context!!
             )
             OptiUtils.copyFileToInternalStorage(
-                R.drawable.in_love_64,
-                "in_love",
+                R.drawable.sticker_7,
+                "sticker_7",
                 context!!
             )
             OptiUtils.copyFileToInternalStorage(
-                R.drawable.lol_64,
-                "lol",
+                R.drawable.sticker_8,
+                "sticker_8",
                 context!!
             )
             OptiUtils.copyFileToInternalStorage(
-                R.drawable.rain_48,
-                "rain",
+                R.drawable.sticker_9,
+                "sticker_9",
                 context!!
             )
             OptiUtils.copyFileToInternalStorage(
-                R.drawable.rain_cloud_48,
-                "rain_cloud",
+                R.drawable.sticker_10,
+                "sticker_10",
+                context!!
+            )
+            OptiUtils.copyFileToInternalStorage(
+                R.drawable.sticker_11,
+                "sticker_11",
+                context!!
+            )
+            OptiUtils.copyFileToInternalStorage(
+                R.drawable.sticker_12,
+                "sticker_12",
+                context!!
+            )
+            OptiUtils.copyFileToInternalStorage(
+                R.drawable.sticker_13,
+                "sticker_13",
+                context!!
+            )
+            OptiUtils.copyFileToInternalStorage(
+                R.drawable.sticker_14,
+                "sticker_14",
+                context!!
+            )
+            OptiUtils.copyFileToInternalStorage(
+                R.drawable.sticker_15,
+                "sticker_15",
+                context!!
+            )
+            OptiUtils.copyFileToInternalStorage(
+                R.drawable.sticker_16,
+                "sticker_16",
+                context!!
+            )
+            OptiUtils.copyFileToInternalStorage(
+                R.drawable.sticker_17,
+                "sticker_17",
+                context!!
+            )
+            OptiUtils.copyFileToInternalStorage(
+                R.drawable.sticker_18,
+                "sticker_18",
+                context!!
+            )
+            OptiUtils.copyFileToInternalStorage(
+                R.drawable.sticker_19,
+                "sticker_19",
                 context!!
             )
 
@@ -526,25 +572,28 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
     }
 
     private fun initializePlayer() {
+        try{
+            ePlayer?.useController = true
+            exoPlayer = ExoPlayerFactory.newSimpleInstance(
+                activity,
+                DefaultRenderersFactory(activity),
+                DefaultTrackSelector(), DefaultLoadControl()
+            )
 
-        ePlayer?.useController = true
-        exoPlayer = ExoPlayerFactory.newSimpleInstance(
-            activity,
-            DefaultRenderersFactory(activity),
-            DefaultTrackSelector(), DefaultLoadControl()
-        )
+            ePlayer?.player = exoPlayer
 
-        ePlayer?.player = exoPlayer
+            exoPlayer?.playWhenReady = false
 
-        exoPlayer?.playWhenReady = false
+            exoPlayer?.addListener(playerListener)
 
-        exoPlayer?.addListener(playerListener)
+            exoPlayer?.prepare(VideoUtils.buildMediaSource(Uri.fromFile(masterVideoFile), VideoFrom.LOCAL))
 
-        exoPlayer?.prepare(VideoUtils.buildMediaSource(Uri.fromFile(masterVideoFile), VideoFrom.LOCAL))
+            exoPlayer?.seekTo(0)
 
-        exoPlayer?.seekTo(0)
-
-        exoPlayer?.seekTo(currentWindow, playbackPosition)
+            exoPlayer?.seekTo(currentWindow, playbackPosition)
+        } catch (exception: Exception){
+            Log.v(tagName, "exception: " + exception.localizedMessage)
+        }
     }
 
     private val playerListener = object : Player.EventListener {
@@ -668,6 +717,7 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
                                 context!!,
                                 "com.obs.videoeditor.provider", videoFile!!
                             )
+                            cameraIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 240) //4 minutes
                             cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1)
                             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoFile)
                             startActivityForResult(cameraIntent, OptiConstant.RECORD_VIDEO)
