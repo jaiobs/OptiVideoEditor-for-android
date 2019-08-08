@@ -44,6 +44,8 @@ class OptiVideoEditor private constructor(private val context: Context) {
     private var startTime = "00:00:00"
     private var endTime = "00:00:00"
     private var audioFile: File? = null
+    //for filter
+    private var filterCommand: String? = null
 
     companion object {
         fun with(context: Context): OptiVideoEditor {
@@ -155,6 +157,11 @@ class OptiVideoEditor private constructor(private val context: Context) {
         return this
     }
 
+    fun setFilter(filter: String): OptiVideoEditor {
+        this.filterCommand = filter
+        return this
+    }
+
     fun main() {
         if(type == OptiConstant.AUDIO_TRIM){
             if (audioFile == null || !audioFile!!.exists()) {
@@ -182,6 +189,11 @@ class OptiVideoEditor private constructor(private val context: Context) {
         var cmd: Array<String>? = null
 
         when (type) {
+            OptiConstant.VIDEO_FLIRT -> {
+                //Video filter - Need video file, filter command & output file
+                cmd = arrayOf("-y", "-i", videoFile!!.path, "-vf", filterCommand!!, outputFile.path)
+            }
+
             OptiConstant.VIDEO_TEXT_OVERLAY -> {
                 //Text overlay on video - Need video file, font file, text, text color, text size, border if needed, position to apply & output file
                 cmd = arrayOf(
@@ -225,6 +237,11 @@ class OptiVideoEditor private constructor(private val context: Context) {
             OptiConstant.VIDEO_TRIM -> {
                 //Video trim - Need video file, start time, end time & output file
                 cmd = arrayOf("-y", "-i", videoFile!!.path, "-ss", startTime, "-t", endTime, "-c", "copy", outputFile.path)
+            }
+
+            OptiConstant.VIDEO_TRANSITION -> {
+                //Video transition - Need video file, transition command & output file
+                cmd = arrayOf("-y", "-i", videoFile!!.absolutePath, "-acodec", "copy", "-vf", "fade=t=in:st=0:d=5", outputFile.path)
             }
         }
 

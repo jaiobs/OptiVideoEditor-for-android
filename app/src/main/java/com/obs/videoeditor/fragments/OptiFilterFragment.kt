@@ -7,6 +7,7 @@
 
 package com.obs.videoeditor.fragments
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.media.ThumbnailUtils
 import android.os.Bundle
@@ -19,17 +20,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler
 import com.github.hiteshsondhi88.libffmpeg.FFmpeg
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException
+import com.obs.videoeditor.OptiVideoEditor
 import com.obs.videoeditor.R
 import com.obs.videoeditor.adapter.OptiFilterAdapter
+import com.obs.videoeditor.interfaces.OptiFFMpegCallback
 import com.obs.videoeditor.interfaces.OptiFilterListener
+import com.obs.videoeditor.utils.OptiConstant
 import com.obs.videoeditor.utils.OptiUtils
 import java.io.File
 
 
-class OptiFilterFragment : BottomSheetDialogFragment(), OptiFilterListener {
+class OptiFilterFragment : BottomSheetDialogFragment(), OptiFilterListener, OptiFFMpegCallback {
 
     private var tagName: String = OptiFilterFragment::class.java.simpleName
     private lateinit var rootView: View
@@ -43,6 +48,7 @@ class OptiFilterFragment : BottomSheetDialogFragment(), OptiFilterListener {
     private lateinit var optiFilterAdapter: OptiFilterAdapter
     private var selectedFilter: String? = null
     private var bmThumbnail: Bitmap? = null
+    private var mContext: Context? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.opti_fragment_filter_dialog, container, false)
@@ -56,6 +62,8 @@ class OptiFilterFragment : BottomSheetDialogFragment(), OptiFilterListener {
         ivClose = rootView.findViewById(R.id.iv_close)
         ivDone = rootView.findViewById(R.id.iv_done)
         linearLayoutManager = LinearLayoutManager(activity!!.applicationContext)
+
+        mContext = context
 
         ivClose.setOnClickListener {
             dismiss()
@@ -122,43 +130,19 @@ class OptiFilterFragment : BottomSheetDialogFragment(), OptiFilterListener {
     }
 
     private fun applyFilterAction(command: String) {
+        //output file is generated and send to video processing
         val outputFile = OptiUtils.createVideoFile(context!!)
         Log.v(tagName, "outputFile: ${outputFile.absolutePath}")
 
-        val cmd = arrayOf("-y", "-i", videoFile!!.path, "-vf", command, outputFile.path)
+        OptiVideoEditor.with(context!!)
+            .setType(OptiConstant.VIDEO_FLIRT)
+            .setFile(videoFile!!)
+            .setFilter(command)
+            .setOutputPath(outputFile.path)
+            .setCallback(this)
+            .main()
 
-        try {
-            FFmpeg.getInstance(context).execute(cmd, object : ExecuteBinaryResponseHandler() {
-                override fun onStart() {
-                    Log.v(tagName, "onStart()")
-                    helper?.showLoading(true)
-                }
-
-                override fun onProgress(message: String?) {
-                    Log.v(tagName, "onProgress()")
-                }
-
-                override fun onSuccess(message: String?) {
-                    Log.v(tagName, "onSuccess()")
-                    helper?.showLoading(false)
-                    helper?.onFileProcessed(outputFile)
-                }
-
-                override fun onFailure(message: String?) {
-                    Log.v(tagName, "onFailure() $message")
-                    helper?.showLoading(false)
-                }
-
-                override fun onFinish() {
-                    Log.v(tagName, "onFinish()")
-                    helper?.showLoading(false)
-                }
-            })
-        } catch (e: Exception) {
-            Log.v(tagName, "Exception ${e.localizedMessage}")
-        } catch (e2: FFmpegCommandAlreadyRunningException) {
-            Log.v(tagName, "FFmpegCommandAlreadyRunningException ${e2.localizedMessage}")
-        }
+        helper?.showLoading(true)
     }
 
     override fun selectedFilter(filter: String) {
@@ -171,5 +155,30 @@ class OptiFilterFragment : BottomSheetDialogFragment(), OptiFilterListener {
 
     fun setFilePathFromSource(file: File) {
         videoFile = file
+    }
+
+    override fun onProgress(progress: String) {
+        Log.v(tagName, "onProgress()")
+    }
+
+    override fun onSuccess(convertedFile: File, type: String) {
+        Log.v(tagName, "onSuccess()")
+        helper?.showLoading(false)
+        helper?.onFileProcessed(convertedFile)
+    }
+
+    override fun onFailure(error: Exception) {
+        Log.v(tagName, "onFailure() ${error.localizedMessage}")
+        Toast.makeText(mContext, "Video processing failed", Toast.LENGTH_LONG).show()
+        helper?.showLoading(false)
+    }
+
+    override fun onNotAvailable(error: Exception) {
+        Log.v(tagName, "onNotAvailable() ${error.localizedMessage}")
+    }
+
+    override fun onFinish() {
+        Log.v(tagName, "onFinish()")
+        helper?.showLoading(false)
     }
 }

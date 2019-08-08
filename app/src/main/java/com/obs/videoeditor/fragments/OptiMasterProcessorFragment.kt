@@ -43,6 +43,7 @@ import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.util.Util
 import com.obs.videoeditor.OptiVideoEditor
 import com.obs.videoeditor.utils.OptiCommonMethods
 import com.obs.videoeditor.utils.OptiConstant
@@ -86,6 +87,7 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
     private var videoOptions: ArrayList<String> = ArrayList()
     private var orientationLand: Boolean = false
     private var tvSave: TextView? = null
+    private var isLargeVideo: Boolean? = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.opti_video_processor_fragment, container, false)
@@ -211,6 +213,7 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
     override fun onFileProcessed(file: File) {
         tvSave!!.visibility = View.VISIBLE
         masterVideoFile = file
+        isLargeVideo = false
         playbackPosition = 0
         currentWindow = 0
         initializePlayer()
@@ -528,6 +531,7 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
                         } else {
                             Toast.makeText(activity, getString(R.string.error_select_smaller_video), Toast.LENGTH_SHORT).show()
 
+                            isLargeVideo = true
                             val uri = Uri.fromFile(masterVideoFile)
                             val intent = Intent(context, OptiTrimmerActivity::class.java)
                             intent.putExtra("VideoPath", filePath)
@@ -542,16 +546,18 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
         }
     }
 
-    /*override fun onResume() {
+    override fun onResume() {
         super.onResume()
         if (Util.SDK_INT <= 23 || exoPlayer == null) {
             masterVideoFile?.let {
-                initializePlayer()
+                if(!isLargeVideo!!) { //for the larger video player shouldn't resume on cancel in trimming view
+                    initializePlayer()
+                }
             }
         }
     }
 
-    override fun onStart() {
+    /*override fun onStart() {
         super.onStart()
         if (Util.SDK_INT > 23) {
             masterVideoFile?.let {

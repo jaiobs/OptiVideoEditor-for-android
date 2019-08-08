@@ -74,6 +74,7 @@ class OptiMergeFragment : BottomSheetDialogFragment(), OptiDialogueHelper, OptiF
             if (videoFileOne != null && videoFileTwo != null) {
                 dismiss()
 
+                //output file is generated and send to video processing
                 val outputFile = OptiUtils.createVideoFile(context!!)
                 Log.v(tagName, "outputFile: ${outputFile.absolutePath}")
 
