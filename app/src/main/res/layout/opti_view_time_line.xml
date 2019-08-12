@@ -55,19 +55,19 @@
             android:secondaryProgress="0"
             android:thumb="@drawable/apptheme_text_select_handle_middle"/>
 
-        <com.obs.videoeditor.videoTrimmer.view.OptiProgressBarView
+        <com.obs.marveleditor.videoTrimmer.view.OptiProgressBarView
             android:id="@+id/timeVideoView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/handlerTop"/>
 
-        <com.obs.videoeditor.videoTrimmer.view.OptiTimeLineView
+        <com.obs.marveleditor.videoTrimmer.view.OptiTimeLineView
             android:id="@+id/timeLineView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/timeVideoView"/>
 
-        <com.obs.videoeditor.videoTrimmer.view.OptiRangeSeekBarView
+        <com.obs.marveleditor.videoTrimmer.view.OptiRangeSeekBarView
             android:id="@+id/timeLineBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

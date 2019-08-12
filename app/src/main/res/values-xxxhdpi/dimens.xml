@@ -9,7 +9,6 @@
 <resources>
     <dimen name="textLarge">23sp</dimen>
     <dimen name="textLarge22">26sp</dimen>
-    <dimen name="textXXLarge">33sp</dimen>
 
     <dimen name="progress_video_line_height">2dp</dimen>
     <dimen name="frames_video_height">40dip</dimen>

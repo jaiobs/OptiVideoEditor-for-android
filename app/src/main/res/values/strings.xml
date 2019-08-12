@@ -6,12 +6,10 @@
   -->
 
 <resources>
-    <string name="app_name">VideoEditor</string>
+    <string name="app_name">MarvelEditor</string>
 
-    <string name="video_editing">VideoEditor</string>
+    <string name="video_editing">MarvelEditor</string>
     <string name="save">Save</string>
-    <string name="crop">Crop</string>
-    <string name="trimming_video">Trimming Video.....</string>
     <string name="processing_video">Processing Video</string>
     <string name="video_1">Video 1</string>
     <string name="video_2">Video 2</string>
@@ -37,11 +35,22 @@
     <string name="play_time">Play Time</string>
     <string name="enter_text_here">Enter text here</string>
 
-    <string name="video_saved_at">Video saves at : $%1s</string>
+    <string name="save_video">Would you like to save your edited video?</string>
+    <string name="Continue">Continue</string>
+    <string name="successfully_saved">Your video was successfully saved</string>
+
+    <string name="not_supported_video">Video format is not supported. Would you like to convert avi to mp4 format?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
     <string name="short_seconds">sec</string>
     <string name="megabyte">MB</string>
     <string name="kilobyte">KB</string>
     <string name="trimming_progress">Trimming your video...</string>
     <string name="cancel">Cancel</string>
+    <string name="select_a_video">Select a video</string>
+    <string name="select_action">Select Action</string>
+    <string name="select_video_from_gallery">Select video from gallery</string>
+    <string name="record_video_from_camera">Record video from camera</string>
 </resources>
 

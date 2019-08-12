@@ -6,15 +6,13 @@
  */
 
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion compileSdk
     defaultConfig {
-        applicationId "com.obs.videoeditor"
+        applicationId "com.obs.marveleditor"
         minSdkVersion minSdk
         targetSdkVersion targetSdk
         versionCode 1

@@ -12,7 +12,20 @@
                                              android:layout_height="?android:attr/actionBarSize"
                                              android:background="@color/black">
 
+    <ImageView
+            android:id="@+id/ivAppLogo"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:src="@drawable/logo_transparent"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvHeader"
+            android:contentDescription="@string/app_name"/>
+
     <TextView
+            android:id="@+id/tvHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_16sdp"
@@ -23,26 +36,22 @@
             android:maxLines="1"
             android:text="@string/video_editing"
             android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivAppLogo"
             app:layout_constraintEnd_toStartOf="@+id/tvSave"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <TextView
+    <ImageView
             android:id="@+id/tvSave"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_12sdp"
-            android:textStyle="bold"
+            android:src="@drawable/ic_baseline_save_24px"
             android:visibility="invisible"
-            android:textColor="@color/white"
-            android:padding="@dimen/_10sdp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@string/save"
-            android:textAlignment="center"
+            android:padding="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/save"/>
 
 </android.support.constraint.ConstraintLayout>

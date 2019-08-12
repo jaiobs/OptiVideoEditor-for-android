@@ -15,7 +15,7 @@
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/splash"
+            android:src="@drawable/splash_marvel"
             android:scaleType="fitXY"
             android:contentDescription="@string/app_name"
             app:layout_constraintTop_toTopOf="parent"

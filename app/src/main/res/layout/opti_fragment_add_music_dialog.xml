@@ -29,8 +29,8 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/roboto_black"
                 android:text="@string/select_music"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textLarge22"/>
+                android:textColor="@color/line_color"
+                android:textSize="@dimen/textLarge"/>
 
         <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/acivClose"
@@ -67,8 +67,8 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_black"
                 android:text="@string/label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/textLarge22"
+                android:textColor="@color/line_color"
+                android:textSize="@dimen/textLarge"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -103,8 +103,8 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/roboto_black"
             android:text="@string/play_time"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textLarge22"/>
+            android:textColor="@color/line_color"
+            android:textSize="@dimen/textLarge"/>
 
     <com.github.guilhe.views.SeekBarRangedView
             android:id="@+id/sbrvVideoTrim"

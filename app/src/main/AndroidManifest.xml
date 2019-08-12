@@ -7,7 +7,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-          package="com.obs.videoeditor">
+          package="com.obs.marveleditor">
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -26,7 +26,7 @@
             android:allowBackup="false">
 
         <!--OptiSplashScreen-->
-        <activity android:name="com.obs.videoeditor.OptiSplashScreen">
+        <activity android:name="com.obs.marveleditor.OptiSplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -35,13 +35,13 @@
         </activity>
 
         <!--MainActivity-->
-        <activity android:name="com.obs.videoeditor.MainActivity"
+        <activity android:name="com.obs.marveleditor.MainActivity"
                   android:screenOrientation="portrait"
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
         <!--OptiTrimmerActivity-->
-        <activity android:name="com.obs.videoeditor.OptiTrimmerActivity"
+        <activity android:name="com.obs.marveleditor.OptiTrimmerActivity"
                   android:screenOrientation="portrait"
                   android:configChanges="orientation|keyboardHidden">
         </activity>
