@@ -13,11 +13,12 @@ import android.graphics.Canvas;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.LongSparseArray;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.obs.marveleditor.R;
 import com.obs.marveleditor.videoTrimmer.utils.OptiBackgroundExecutor;

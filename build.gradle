@@ -8,21 +8,24 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.compileSdk = 28
+    ext.compileSdk = 30
     ext.minSdk = 21
-    ext.targetSdk = 28
+    ext.targetSdk = 30
+    ext.buildToolVersion = '30.0.2'
 
-    ext.gradleVersion = '3.4.2'
-    ext.kotlinVersion = '1.3.41'
-    ext.appCompat = '28.0.0'
-    ext.constraint = '1.1.3'
-    ext.exoPlayer = '2.7.3'
-    ext.exoPlayerCore = '2.9.3'
+    ext.gradleVersion = '4.1.1'
+    ext.kotlinVersion = '1.4.10'
+    ext.appCompat = '1.2.0'
+    ext.cardView = '1.0.0'
+    ext.recyclerView = '1.2.0-beta01'
+    ext.constraint = '2.0.4'
+    ext.exoPlayer = '2.12.1'
+    ext.exoPlayerCore = '2.12.1'
     ext.FFmpeg = '0.3.2'
-    ext.jcodec = '0.1.9'
-    ext.seekbar = '1.0.3'
+    ext.jcodec = '0.2.3'
+    ext.seekbar = '3.0.0'
     ext.GlideToast = '1.0'
-    ext.fresco = '1.9.0'
+    ext.fresco = '1.13.0'
     ext.sdpSize = '1.0.6'
 
     repositories {

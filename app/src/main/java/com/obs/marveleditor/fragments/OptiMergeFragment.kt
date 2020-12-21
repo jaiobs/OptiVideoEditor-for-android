@@ -18,19 +18,21 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
-import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v4.app.ActivityCompat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
 import com.obs.marveleditor.utils.OptiConstant
 import com.obs.marveleditor.R
 import com.obs.marveleditor.utils.OptiUtils
 import com.obs.marveleditor.interfaces.OptiDialogueHelper
 import com.facebook.drawee.view.SimpleDraweeView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.obs.marveleditor.OptiVideoEditor
 import com.obs.marveleditor.interfaces.OptiFFMpegCallback
 import java.io.File
@@ -39,8 +41,8 @@ class OptiMergeFragment : BottomSheetDialogFragment(), OptiDialogueHelper, OptiF
 
     private var tagName: String = OptiMergeFragment::class.java.simpleName
     private lateinit var rootView: View
-    private lateinit var ivClose: ImageView
-    private lateinit var ivDone: ImageView
+    private lateinit var ivClose: AppCompatImageView
+    private lateinit var ivDone: AppCompatImageView
     private lateinit var ivVideoOne: SimpleDraweeView
     private lateinit var ivVideoTwo: SimpleDraweeView
     private var videoFileOne: File? = null

@@ -8,11 +8,12 @@
 package com.obs.marveleditor.fragments
 
 import android.os.Bundle
-import android.support.v7.widget.AppCompatImageView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import com.obs.marveleditor.R
 import com.obs.marveleditor.interfaces.OptiDialogueHelper
 import java.io.File
@@ -36,8 +37,8 @@ class OptiVideoOptionFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHel
 
     //private var tagName: String = OptiVideoOptionFragment::class.java.simpleName
     private var acivClose: AppCompatImageView? = null
-    private var tvGallery: TextView? = null
-    private var tvCamera: TextView? = null
+    private var tvGallery: AppCompatTextView? = null
+    private var tvCamera: AppCompatTextView? = null
     private var helper: CallBacks? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -54,16 +55,16 @@ class OptiVideoOptionFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHel
         tvCamera = inflate?.findViewById(R.id.tvCamera)
 
         acivClose?.setOnClickListener {
-            dialog.dismiss()
+            dialog?.dismiss()
         }
 
         tvGallery?.setOnClickListener {
-            dialog.dismiss()
+            dialog?.dismiss()
             helper?.openGallery()
         }
 
         tvCamera?.setOnClickListener {
-            dialog.dismiss()
+            dialog?.dismiss()
             helper?.openCamera()
         }
     }

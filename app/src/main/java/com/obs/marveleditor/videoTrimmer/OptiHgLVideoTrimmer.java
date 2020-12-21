@@ -13,8 +13,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -22,12 +20,16 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.obs.marveleditor.R;
 import com.obs.marveleditor.videoTrimmer.interfaces.OptiOnHgLVideoListener;
@@ -40,6 +42,11 @@ import com.obs.marveleditor.videoTrimmer.view.OptiProgressBarView;
 import com.obs.marveleditor.videoTrimmer.view.OptiRangeSeekBarView;
 import com.obs.marveleditor.videoTrimmer.view.OptiThumb;
 import com.obs.marveleditor.videoTrimmer.view.OptiTimeLineView;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.obs.marveleditor.videoTrimmer.utils.OptiTrimVideoUtils.stringForTime;
 

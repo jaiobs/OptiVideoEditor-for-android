@@ -10,15 +10,16 @@ package com.obs.marveleditor.fragments
 import android.content.Context
 import android.os.Bundle
 import android.os.Environment
-import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.obs.marveleditor.utils.OptiConstant
 import com.obs.marveleditor.OptiVideoEditor
 import com.obs.marveleditor.R
@@ -39,8 +40,8 @@ class OptiAddClipArtFragment : BottomSheetDialogFragment(), OptiClipArtListener,
     private lateinit var linearLayoutManagerTwo: LinearLayoutManager
     private lateinit var rvClipArt: RecyclerView
     private lateinit var rvPosition: RecyclerView
-    private lateinit var ivClose: ImageView
-    private lateinit var ivDone: ImageView
+    private lateinit var ivClose: AppCompatImageView
+    private lateinit var ivDone: AppCompatImageView
     private var videoFile: File? = null
     private var clipArtFilePath: ArrayList<String> = ArrayList()
     private var positionList: ArrayList<String> = ArrayList()

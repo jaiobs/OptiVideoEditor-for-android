@@ -9,12 +9,13 @@ package com.obs.marveleditor.adapter
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.RecyclerView
 import com.obs.marveleditor.R
 import com.obs.marveleditor.interfaces.OptiPlaybackSpeedListener
 import com.obs.marveleditor.utils.OptiConstant
@@ -95,6 +96,6 @@ class OptiPlaybackSpeedAdapter(private val playbackList: ArrayList<String>, val 
     }
 
     class MyPostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvSpeed: TextView = itemView.findViewById(R.id.tv_speed)
+        var tvSpeed: AppCompatTextView = itemView.findViewById(R.id.tv_speed)
     }
 }

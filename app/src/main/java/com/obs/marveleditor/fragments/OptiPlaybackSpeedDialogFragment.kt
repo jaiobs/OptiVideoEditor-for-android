@@ -9,15 +9,16 @@ package com.obs.marveleditor.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.obs.marveleditor.utils.OptiConstant
 import com.obs.marveleditor.OptiVideoEditor
 import com.obs.marveleditor.R
@@ -37,8 +38,8 @@ class OptiPlaybackSpeedDialogFragment : BottomSheetDialogFragment(), OptiDialogu
     private lateinit var rvPlaybackSpeed: RecyclerView
     private lateinit var optiPlaybackSpeedAdapter: OptiPlaybackSpeedAdapter
     private var playbackSpeed: ArrayList<String> = ArrayList()
-    private lateinit var ivClose: ImageView
-    private lateinit var ivDone: ImageView
+    private lateinit var ivClose: AppCompatImageView
+    private lateinit var ivDone: AppCompatImageView
     private var masterFile: File? = null
     private var isHavingAudio = true
     private var helper: OptiBaseCreatorDialogFragment.CallBacks? = null
