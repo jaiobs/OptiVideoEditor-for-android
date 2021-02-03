@@ -209,18 +209,22 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
 
     private val playerListener = object : Player.EventListener {
         override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
+            //no implementation
         }
 
         override fun onSeekProcessed() {
+            //no implementation
         }
 
         override fun onTracksChanged(
             trackGroups: TrackGroupArray,
             trackSelections: TrackSelectionArray
         ) {
+            //no implementation
         }
 
         override fun onPlayerError(error: ExoPlaybackException) {
+            //no implementation
         }
 
         override fun onLoadingChanged(isLoading: Boolean) {
@@ -228,17 +232,20 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
         }
 
         override fun onPositionDiscontinuity(reason: Int) {
+            //no implementation
         }
 
         override fun onRepeatModeChanged(repeatMode: Int) {
+            //no implementation
         }
 
         override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {
+            //no implementation
         }
 
-        override fun onTimelineChanged(timeline: Timeline, reason: Int) {
+        /*override fun onTimelineChanged(timeline: Timeline, reason: Int) {
 
-        }
+        }*/
 
         override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
 
@@ -274,7 +281,7 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
     }
 
     override fun setMode(mode: Int) {
-
+        //no implementation
     }
 
     override fun setHelper(helper: CallBacks) {
@@ -286,11 +293,11 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
     }
 
     override fun dismiss() {
-
+        //no implementation
     }
 
     override fun permissionsBlocked() {
-
+        //no implementation
     }
 
     override fun onStop() {
@@ -380,7 +387,7 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
                     }
                 }
             } catch (e: Exception) {
-
+                Log.v(tagName, "Exception: " + e.localizedMessage)
             }
         }
     }

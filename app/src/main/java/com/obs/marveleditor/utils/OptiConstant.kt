@@ -71,6 +71,7 @@ class OptiConstant {
         const val VIDEO_FORMAT = ".mp4"
         const val AUDIO_FORMAT = ".mp3"
         const val AVI_FORMAT = ".avi"
+        const val TXT_FORMAT = ".txt"
 
         const val VIDEO_LIMIT = 4 //4 minutes
     }

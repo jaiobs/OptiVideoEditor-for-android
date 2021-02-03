@@ -198,7 +198,7 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         //for playing video in landscape mode
-        if (newConfig!!.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Log.v(tagName, "orientation: ORIENTATION_LANDSCAPE")
             orientationLand = true
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -212,7 +212,7 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
     }
 
     override fun onAudioFileProcessed(convertedAudioFile: File) {
-
+        //no implementation
     }
 
     override fun reInitPlayer() {
@@ -571,7 +571,7 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
                     }
                 }
             } catch (e: Exception) {
-
+                Log.v(tagName, "Exception: " + e.localizedMessage)
             }
         }
     }
@@ -642,15 +642,18 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
 
     private val playerListener = object : Player.EventListener {
         override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
+            //no implementation
         }
 
         override fun onSeekProcessed() {
+            //no implementation
         }
 
         override fun onTracksChanged(
             trackGroups: TrackGroupArray,
             trackSelections: TrackSelectionArray
         ) {
+            //no implementation
         }
 
         override fun onPlayerError(error: ExoPlaybackException) {
@@ -663,17 +666,20 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
         }
 
         override fun onPositionDiscontinuity(reason: Int) {
+            //no implementation
         }
 
         override fun onRepeatModeChanged(repeatMode: Int) {
+            //no implementation
         }
 
         override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {
+            //no implementation
         }
 
-        override fun onTimelineChanged(timeline: Timeline, reason: Int) {
+        /*override fun onTimelineChanged(timeline: Timeline, reason: Int) {
 
-        }
+        }*/
 
         override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
 

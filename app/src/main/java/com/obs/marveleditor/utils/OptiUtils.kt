@@ -101,6 +101,14 @@ object OptiUtils {
         }
     }
 
+    fun createTextFile(context: Context): File {
+        val timeStamp: String = SimpleDateFormat(OptiConstant.DATE_FORMAT, Locale.getDefault()).format(Date())
+        val imageFileName: String = OptiConstant.APP_NAME + timeStamp + "_"
+        val storageDir: File = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!
+        if (!storageDir.exists()) storageDir.mkdirs()
+        return File.createTempFile(imageFileName, OptiConstant.TXT_FORMAT, storageDir)
+    }
+
     fun refreshGalleryAlone(context: Context) {
         try {
             val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
