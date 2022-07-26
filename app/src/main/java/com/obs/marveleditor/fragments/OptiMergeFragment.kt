@@ -13,34 +13,39 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.media.MediaMetadataRetriever
 import android.media.ThumbnailUtils
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
-import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v4.app.ActivityCompat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
 import com.obs.marveleditor.utils.OptiConstant
 import com.obs.marveleditor.R
 import com.obs.marveleditor.utils.OptiUtils
 import com.obs.marveleditor.interfaces.OptiDialogueHelper
 import com.facebook.drawee.view.SimpleDraweeView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.obs.marveleditor.OptiVideoEditor
 import com.obs.marveleditor.interfaces.OptiFFMpegCallback
+import com.obs.marveleditor.utils.OptiCommonMethods
 import java.io.File
+import java.io.FileWriter
 
 class OptiMergeFragment : BottomSheetDialogFragment(), OptiDialogueHelper, OptiFFMpegCallback {
 
     private var tagName: String = OptiMergeFragment::class.java.simpleName
     private lateinit var rootView: View
-    private lateinit var ivClose: ImageView
-    private lateinit var ivDone: ImageView
+    private lateinit var ivClose: AppCompatImageView
+    private lateinit var ivDone: AppCompatImageView
     private lateinit var ivVideoOne: SimpleDraweeView
     private lateinit var ivVideoTwo: SimpleDraweeView
     private var videoFileOne: File? = null
@@ -49,6 +54,7 @@ class OptiMergeFragment : BottomSheetDialogFragment(), OptiDialogueHelper, OptiF
     private var bmThumbnailTwo: Bitmap? = null
     private var helper: OptiBaseCreatorDialogFragment.CallBacks? = null
     private var mContext: Context? = null
+    private var isMP4: Boolean? = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.opti_fragment_merge_dialog, container, false)
@@ -74,6 +80,29 @@ class OptiMergeFragment : BottomSheetDialogFragment(), OptiDialogueHelper, OptiF
             if (videoFileOne != null && videoFileTwo != null) {
                 dismiss()
 
+                val metaRetriever = MediaMetadataRetriever()
+                metaRetriever.setDataSource(videoFileOne!!.absolutePath)
+                val height = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)
+                val width = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)
+                Log.v(tagName, "height: $height, width: $width")
+
+                //create text file for concat demuxer
+                val txtFile = OptiUtils.createTextFile(context!!)
+                Log.v(tagName, "txtFile: ${txtFile.absolutePath}")
+
+                val writer = FileWriter(txtFile)
+                writer.append("file '" + videoFileOne!!.absolutePath + "'")
+                writer.append("\n")
+                writer.append("file '" + videoFileTwo!!.absolutePath + "'")
+                writer.flush()
+                writer.close()
+
+                val extensionOne = OptiCommonMethods.getFileExtension(videoFileOne!!.absolutePath)
+                val extensionTwo = OptiCommonMethods.getFileExtension(videoFileTwo!!.absolutePath)
+                Log.v(tagName, "extensionOne: $extensionOne, extensionTwo: $extensionTwo")
+
+                isMP4 = extensionOne == OptiConstant.VIDEO_FORMAT && extensionTwo == OptiConstant.VIDEO_FORMAT
+
                 //output file is generated and send to video processing
                 val outputFile = OptiUtils.createVideoFile(context!!)
                 Log.v(tagName, "outputFile: ${outputFile.absolutePath}")
@@ -82,7 +111,9 @@ class OptiMergeFragment : BottomSheetDialogFragment(), OptiDialogueHelper, OptiF
                     .setType(OptiConstant.MERGE_VIDEO)
                     .setFile(videoFileOne!!)
                     .setFileTwo(videoFileTwo!!)
+                    .setTextFile(txtFile, isMP4!!)
                     .setOutputPath(outputFile.path)
+                    .setFileWidthHeight(width!!, height!!)
                     .setCallback(this)
                     .main()
 

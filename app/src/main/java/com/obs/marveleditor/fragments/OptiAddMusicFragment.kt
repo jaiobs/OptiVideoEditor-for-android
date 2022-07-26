@@ -17,15 +17,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
-import android.support.v4.app.ActivityCompat
-import android.support.v7.widget.AppCompatButton
-import android.support.v7.widget.AppCompatImageView
-import android.support.v7.widget.AppCompatTextView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.app.ActivityCompat
 import com.obs.marveleditor.utils.OptiConstant
 import com.obs.marveleditor.R
 import com.obs.marveleditor.interfaces.OptiFFMpegCallback
@@ -66,10 +66,10 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
     private var durationSet: Boolean = false
     private var flLoadingView: FrameLayout? = null
     private var pbLoading: ProgressBar? = null
-    private var tvSelectedAudio: TextView? = null
-    private var ivRadio: ImageView? = null
+    private var tvSelectedAudio: AppCompatTextView? = null
+    private var ivRadio: AppCompatImageView? = null
     private var masterAudioFile: File? = null
-    private var tvSubTitle: TextView? = null
+    private var tvSubTitle: AppCompatTextView? = null
     private var nextAction: Int = 1
     private var seekToValue: Long = 0L
     private var minSeekValue: Float = 0F
@@ -103,7 +103,7 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
         mContext = context
 
         acivClose?.setOnClickListener {
-            dialog.dismiss()
+            dialog?.dismiss()
             helper?.onDidNothing()
         }
 
@@ -115,18 +115,21 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
             checkPermission(OptiConstant.AUDIO_GALLERY, Manifest.permission.READ_EXTERNAL_STORAGE)
         }
 
-        sbrvVideoTrim?.setOnSeekBarRangedChangeListener(object : SeekBarRangedView.OnSeekBarRangedChangeListener {
-            override fun onChanged(view: SeekBarRangedView?, minValue: Float, maxValue: Float) {
+        val callback = object : SeekBarRangedView.SeekBarRangedChangeCallback {
+
+            override fun onChanged(minValue: Float, maxValue: Float) {
                 exoPlayer?.seekTo(minValue.toLong())
             }
 
-            override fun onChanging(view: SeekBarRangedView?, minValue: Float, maxValue: Float) {
+            override fun onChanging(minValue: Float, maxValue: Float) {
                 minSeekValue = minValue
                 maxSeekValue = maxValue
                 actvStartTime?.text = secToTime(minValue.toLong())
                 actvEndTime?.text = secToTime(maxValue.toLong())
             }
-        })
+        }
+
+        sbrvVideoTrim?.actionCallback = callback
 
         setControls(false)
     }
@@ -142,10 +145,12 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
     }
 
     private fun initializePlayer() {
-        exoPlayer = ExoPlayerFactory.newSimpleInstance(
-            activity, DefaultRenderersFactory(activity),
-            DefaultTrackSelector(), DefaultLoadControl()
-        )
+        exoPlayer = activity?.let {
+            ExoPlayerFactory.newSimpleInstance(
+                it, DefaultRenderersFactory(activity!!),
+                DefaultTrackSelector(), DefaultLoadControl()
+            )
+        }
 
         ePlayer?.player = exoPlayer
 
@@ -153,7 +158,11 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
 
         exoPlayer?.addListener(playerListener)
 
-        exoPlayer?.prepare(buildMediaSource(Uri.fromFile(masterAudioFile), VideoFrom.LOCAL))
+        buildMediaSource(Uri.fromFile(masterAudioFile), VideoFrom.LOCAL)?.let {
+            exoPlayer?.prepare(
+                it
+            )
+        }
 
         exoPlayer?.seekTo(0)
 
@@ -199,16 +208,23 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
     }
 
     private val playerListener = object : Player.EventListener {
-        override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters?) {
+        override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
+            //no implementation
         }
 
         override fun onSeekProcessed() {
+            //no implementation
         }
 
-        override fun onTracksChanged(trackGroups: TrackGroupArray?, trackSelections: TrackSelectionArray?) {
+        override fun onTracksChanged(
+            trackGroups: TrackGroupArray,
+            trackSelections: TrackSelectionArray
+        ) {
+            //no implementation
         }
 
-        override fun onPlayerError(error: ExoPlaybackException?) {
+        override fun onPlayerError(error: ExoPlaybackException) {
+            //no implementation
         }
 
         override fun onLoadingChanged(isLoading: Boolean) {
@@ -216,17 +232,20 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
         }
 
         override fun onPositionDiscontinuity(reason: Int) {
+            //no implementation
         }
 
         override fun onRepeatModeChanged(repeatMode: Int) {
+            //no implementation
         }
 
         override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {
+            //no implementation
         }
 
-        override fun onTimelineChanged(timeline: Timeline?, manifest: Any?, reason: Int) {
+        /*override fun onTimelineChanged(timeline: Timeline, reason: Int) {
 
-        }
+        }*/
 
         override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
 
@@ -245,12 +264,12 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
                 if (!durationSet) {
                     durationSet = true
                     val duration = exoPlayer?.duration
-                    sbrvVideoTrim?.maxValue = duration?.toFloat()!!
+                    sbrvVideoTrim?.setMaxValue(duration?.toFloat()!!)
                     actvStartTime?.text = secToTime(0)
-                    actvEndTime?.text = secToTime(duration)
+                    actvEndTime?.text = duration?.let { secToTime(it) }
                     //set min & max seek value for audio trimming
                     minSeekValue = 0F
-                    maxSeekValue = duration.toFloat()
+                    maxSeekValue = duration?.toFloat() ?: 0F
                 }
             }
         }
@@ -262,7 +281,7 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
     }
 
     override fun setMode(mode: Int) {
-
+        //no implementation
     }
 
     override fun setHelper(helper: CallBacks) {
@@ -274,11 +293,11 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
     }
 
     override fun dismiss() {
-
+        //no implementation
     }
 
     override fun permissionsBlocked() {
-
+        //no implementation
     }
 
     override fun onStop() {
@@ -368,7 +387,7 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
                     }
                 }
             } catch (e: Exception) {
-
+                Log.v(tagName, "Exception: " + e.localizedMessage)
             }
         }
     }
@@ -438,7 +457,7 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
             muxVideoPlayer()
         } else {
             helper?.showLoading(false)
-            dialog.dismiss()
+            dialog?.dismiss()
         }
     }
 
@@ -467,7 +486,7 @@ class OptiAddMusicFragment : OptiBaseCreatorDialogFragment(), OptiDialogueHelper
         }
     }
 
-    override fun onCancel(dialog: DialogInterface?) {
+    override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
         releasePlayer()
     }

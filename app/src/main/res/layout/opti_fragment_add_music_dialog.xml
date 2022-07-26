@@ -1,13 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /*
   ~ * Created by Optisol on Aug 2019.
   ~ * Copyright © 2019 Optisol Business Solutions pvt ltd. All rights reserved.
   ~ * */
   -->
 
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:custom="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -20,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_46sdp">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -30,9 +28,9 @@
                 android:fontFamily="@font/roboto_black"
                 android:text="@string/select_music"
                 android:textColor="@color/line_color"
-                android:textSize="@dimen/textLarge"/>
+                android:textSize="@dimen/textLarge" />
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/acivClose"
                 android:layout_width="@dimen/_18sdp"
                 android:layout_height="@dimen/_18sdp"
@@ -41,7 +39,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:tint="@color/black"
-                app:srcCompat="@drawable/close"/>
+                app:srcCompat="@drawable/close" />
     </RelativeLayout>
 
     <View
@@ -49,13 +47,13 @@
             android:layout_height="1dp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@color/colorDivider"/>
+            android:background="@color/colorDivider" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_46sdp">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_selected_audio"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -72,9 +70,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/ivRadio"/>
+                app:layout_constraintEnd_toStartOf="@+id/ivRadio" />
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivRadio"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
@@ -85,17 +83,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_selected_audio"/>
-    </android.support.constraint.ConstraintLayout>
+                app:layout_constraintStart_toEndOf="@+id/tv_selected_audio" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@color/colorDivider"/>
+            android:background="@color/colorDivider" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,7 +102,7 @@
             android:fontFamily="@font/roboto_black"
             android:text="@string/play_time"
             android:textColor="@color/line_color"
-            android:textSize="@dimen/textLarge"/>
+            android:textSize="@dimen/textLarge" />
 
     <com.github.guilhe.views.SeekBarRangedView
             android:id="@+id/sbrvVideoTrim"
@@ -116,7 +114,7 @@
             custom:currentMin="10"
             custom:progressColor="@color/text_header"
             custom:progressHeight="20dp"
-            custom:rounded="false"/>
+            custom:rounded="false" />
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -125,26 +123,26 @@
             android:layout_marginEnd="@dimen/_5sdp"
             android:weightSum="2">
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/actvStartTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="start|center_vertical"/>
+                android:gravity="start|center_vertical" />
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/actvEndTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="end|center_vertical"/>
+                android:gravity="end|center_vertical" />
     </LinearLayout>
 
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/acbCrop"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_45sdp"
@@ -160,7 +158,7 @@
                 android:text="@string/save"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textLarge"
-                android:visibility="visible"/>
+                android:visibility="visible" />
 
         <FrameLayout
                 android:id="@+id/flLoadingView"
@@ -174,14 +172,14 @@
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:indeterminate="true"/>
+                    android:indeterminate="true" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/_10sdp"
-                    android:text="@string/processing_video"/>
+                    android:text="@string/processing_video" />
         </FrameLayout>
 
     </RelativeLayout>

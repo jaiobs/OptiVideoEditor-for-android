@@ -46,6 +46,11 @@ class OptiVideoEditor private constructor(private val context: Context) {
     private var audioFile: File? = null
     //for filter
     private var filterCommand: String? = null
+    //for merge
+    private var width: String? = null
+    private var height: String? = null
+    private var textFile: File? = null
+    private var isMP4: Boolean? = false
 
     companion object {
         fun with(context: Context): OptiVideoEditor {
@@ -120,6 +125,18 @@ class OptiVideoEditor private constructor(private val context: Context) {
 
     fun setColor(color: String): OptiVideoEditor {
         this.color = color
+        return this
+    }
+
+    fun setFileWidthHeight(width: String, height: String): OptiVideoEditor {
+        this.width = width
+        this.height = height
+        return this
+    }
+
+    fun setTextFile(file: File, isMP4: Boolean): OptiVideoEditor {
+        textFile = file
+        this.isMP4 = isMP4
         return this
     }
 
@@ -199,28 +216,43 @@ class OptiVideoEditor private constructor(private val context: Context) {
                 cmd = arrayOf(
                     "-y", "-i", videoFile!!.path, "-vf",
                     "drawtext=fontfile=" + font!!.path + ": text=" + text + ": fontcolor=" + color + ": fontsize=" + size + border + ": " + position,
-                    "-c:v", "libx264", "-c:a", "copy", "-movflags", "+faststart", outputFile.path)
+                    "-c:v", "libx264", "-crf", "23", "-preset", "ultrafast", "-c:a", "copy", "-movflags", "+faststart", outputFile.path)
             }
 
             OptiConstant.VIDEO_CLIP_ART_OVERLAY -> {
                 //Clipart overlay on video - Need video file, image path, position to apply & output file
-                cmd = arrayOf("-y", "-i", videoFile!!.path, "-i", imagePath!!, "-filter_complex", position!!, "-codec:a", "copy", outputFile.path)
+                cmd = arrayOf("-y", "-i", videoFile!!.path, "-i", imagePath!!, "-filter_complex", position!!,
+                    "-c:v", "libx264", "-crf", "23", "-preset", "ultrafast", "-codec:a", "copy", outputFile.path)
             }
 
             OptiConstant.MERGE_VIDEO -> {
                 //Merge videos - Need two video file, approx video size & output file
-                cmd = arrayOf("-y", "-i", videoFile!!.path, "-i", videoFileTwo!!.path, "-strict", "experimental", "-filter_complex",
+                /*cmd = arrayOf("-y", "-i", videoFile!!.path, "-i", videoFileTwo!!.path, "-strict", "experimental", "-filter_complex",
                     "[0:v]scale=iw*min(1920/iw\\,1080/ih):ih*min(1920/iw\\,1080/ih), pad=1920:1080:(1920-iw*min(1920/iw\\,1080/ih))/2:(1080-ih*min(1920/iw\\,1080/ih))/2,setsar=1:1[v0];[1:v] scale=iw*min(1920/iw\\,1080/ih):ih*min(1920/iw\\,1080/ih), pad=1920:1080:(1920-iw*min(1920/iw\\,1080/ih))/2:(1080-ih*min(1920/iw\\,1080/ih))/2,setsar=1:1[v1];[v0][0:a][v1][1:a] concat=n=2:v=1:a=1",
-                    "-ab", "48000", "-ac", "2", "-ar", "22050", "-s", "1920x1080", "-vcodec", "libx264", "-crf", "27",
-                    "-q", "4", "-preset", "ultrafast", outputFile.path)
+                    "-ab", "48000", "-ac", "2", "-ar", "22050", "-s", "1920x1080", "-vcodec", "-c:v", "libx264", "-crf", "23",
+                    "-preset", "veryfast", outputFile.path)*/
+                cmd = if(!isMP4!!) {
+                    //concat video filter for other video format files
+                    arrayOf(
+                        "-y", "-i", videoFile!!.path, "-i", videoFileTwo!!.path, "-filter_complex",
+                        "[0:v]setsar=1:1[v0];[1:v]scale=$width:$height,setsar=1:1[v1];[v0][0:a][v1][1:a] concat=n=2:v=1:a=1",
+                        "-c:v", "libx264", "-crf", "23", "-preset", "ultrafast", outputFile.path
+                    )
+                } else {
+                    //concat demuxer - for mp4 video format files
+                    arrayOf("-y", "-f", "concat", "-safe", "0", "-i", textFile!!.path,
+                        "-c:v", "libx264", "-crf", "23", "-preset", "ultrafast", "-c:a", "copy", "-strict", "-2", outputFile.path)
+                }
             }
 
             OptiConstant.VIDEO_PLAYBACK_SPEED -> {
                 //Video playback speed - Need video file, speed & tempo value according to playback and output file
                 cmd = if (havingAudio) {
-                    arrayOf("-y", "-i", videoFile!!.path, "-filter_complex", ffmpegFS!!, "-map", "[v]", "-map", "[a]", outputFile.path)
+                    arrayOf("-y", "-i", videoFile!!.path, "-filter_complex", ffmpegFS!!, "-map", "[v]", "-map", "[a]",
+                        "-c:v", "libx264", "-crf", "23", "-preset", "ultrafast", outputFile.path)
                 } else {
-                    arrayOf("-y", "-i", videoFile!!.path, "-filter:v", ffmpegFS!!, outputFile.path)
+                    arrayOf("-y", "-i", videoFile!!.path, "-filter:v", ffmpegFS!!,
+                        "-c:v", "libx264", "-crf", "23", "-preset", "ultrafast", outputFile.path)
                 }
             }
 
@@ -236,7 +268,11 @@ class OptiVideoEditor private constructor(private val context: Context) {
 
             OptiConstant.VIDEO_TRIM -> {
                 //Video trim - Need video file, start time, end time & output file
-                cmd = arrayOf("-y", "-i", videoFile!!.path, "-ss", startTime, "-t", endTime, "-c", "copy", outputFile.path)
+                //-t will have the duration (in seconds) that we want to trim from startTime
+                Log.v(tagName, "final: $startTime, $endTime")
+                //cmd = arrayOf("-y", "-i", videoFile!!.path, "-ss", startTime, "-t", endTime, "-c", "copy", outputFile.path)
+                cmd = arrayOf("-y", "-i", videoFile!!.path, "-ss", startTime, "-t", endTime, "-c", "copy",
+                    "-preset", "ultrafast", outputFile.path)
             }
 
             OptiConstant.VIDEO_TRANSITION -> {
@@ -246,7 +282,8 @@ class OptiVideoEditor private constructor(private val context: Context) {
 
             OptiConstant.CONVERT_AVI_TO_MP4 -> {
                 //Convert .avi to .mp4 - Need avi video file, command, mp4 output file
-                cmd = arrayOf("-y", "-i", videoFile!!.path, "-c:v", "libx264", "-crf", "19", "-preset", "slow", "-c:a", "aac", "-b:a", "192k", "-ac", "2", outputFile.path)
+                //cmd = arrayOf("-y", "-i", videoFile!!.path, "-c:v", "libx264", "-crf", "19", "-preset", "slow", "-c:a", "aac", "-b:a", "192k", "-ac", "2", outputFile.path)
+                cmd = arrayOf("-y", "-i", videoFile!!.path, "-c:v", "libx264", "-crf", "19", "-preset", "ultrafast", "-c:a", "aac", "-b:a", "192k", "-ac", "2", outputFile.path)
             }
         }
 

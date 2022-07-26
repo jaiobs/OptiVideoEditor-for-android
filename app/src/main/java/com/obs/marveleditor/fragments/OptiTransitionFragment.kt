@@ -9,15 +9,16 @@ package com.obs.marveleditor.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.obs.marveleditor.OptiVideoEditor
 import com.obs.marveleditor.R
 import com.obs.marveleditor.adapter.OptiTransitionAdapter
@@ -34,8 +35,8 @@ class OptiTransitionFragment : BottomSheetDialogFragment(), OptiFilterListener, 
     private lateinit var rootView: View
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var rvTransition: RecyclerView
-    private lateinit var ivClose: ImageView
-    private lateinit var ivDone: ImageView
+    private lateinit var ivClose: AppCompatImageView
+    private lateinit var ivDone: AppCompatImageView
     private var videoFile: File? = null
     private var helper: OptiBaseCreatorDialogFragment.CallBacks? = null
     private var transitionList: ArrayList<String> = ArrayList()

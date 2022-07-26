@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /*
+  ~ * Created by Optisol on Aug 2019.
+  ~ * Copyright © 2019 Optisol Business Solutions pvt ltd. All rights reserved.
+  ~ * */
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:height="24dp"
+        android:viewportHeight="510.0"
+        android:viewportWidth="510.0"
+        android:width="24dp">
+    <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M459,0H51C23,0 0,23 0,51v255c0,28 23,51 51,51h408c28,0 51,-23 51,-51V51C510,23 487,0 459,0zM229.5,76.5h51v51h-51V76.5zM229.5,153h51v51h-51V153zM153,76.5h51v51h-51V76.5zM153,153h51v51h-51V153zM127.5,204h-51v-51h51V204zM127.5,127.5h-51v-51h51V127.5zM357,306H153v-51h204V306zM357,204h-51v-51h51V204zM357,127.5h-51v-51h51V127.5zM433.5,204h-51v-51h51V204zM433.5,127.5h-51v-51h51V127.5zM255,510l102,-102H153L255,510z" />
+</vector>

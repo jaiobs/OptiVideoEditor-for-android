@@ -8,11 +8,12 @@
 package com.obs.marveleditor.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.recyclerview.widget.RecyclerView
 import com.obs.marveleditor.R
 import com.obs.marveleditor.interfaces.OptiVideoOptionListener
 import com.obs.marveleditor.utils.OptiConstant
@@ -75,7 +76,7 @@ class OptiVideoOptionsAdapter(videoOptions: ArrayList<String>, val context: Cont
     }
 
     class MyPostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var ivOption: ImageView = itemView.findViewById(R.id.iv_option)
+        var ivOption: AppCompatImageView = itemView.findViewById(R.id.iv_option)
     }
 
     override fun getItemCount(): Int {

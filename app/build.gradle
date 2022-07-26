@@ -10,14 +10,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion compileSdk
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.obs.marveleditor"
-        minSdkVersion minSdk
+        minSdkVersion 21
         targetSdkVersion targetSdk
-        versionCode 1
+        versionCode 2
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
         release {
@@ -36,14 +36,19 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinVersion}"
 
-    implementation "com.android.support:appcompat-v7:${appCompat}"
-    implementation "com.android.support.constraint:constraint-layout:${constraint}"
-    implementation "com.android.support:design:${appCompat}"
+    implementation "androidx.appcompat:appcompat:${appCompat}"
+    implementation "androidx.constraintlayout:constraintlayout:${constraint}"
+    implementation "androidx.cardview:cardview:${cardView}"
+    implementation 'com.google.android.material:material:1.2.1'
 
     //exoplayer
+    //implementation "com.google.android.exoplayer:exoplayer:${exoPlayer}"
     implementation "com.google.android.exoplayer:exoplayer-core:${exoPlayerCore}"
     implementation "com.google.android.exoplayer:exoplayer-dash:${exoPlayer}"
     implementation "com.google.android.exoplayer:exoplayer-ui:${exoPlayer}"
+
+    // RecyclerView
+    implementation "androidx.recyclerview:recyclerview:${recyclerView}"
 
     //ffmpeg
     implementation "com.writingminds:FFmpegAndroid:${FFmpeg}"
@@ -61,7 +66,7 @@ dependencies {
     //fresco
     implementation "com.facebook.fresco:fresco:${fresco}"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

@@ -48,7 +48,11 @@ object VideoUtils {
                     }
                 }
 
-                return ExtractorMediaSource.Factory(factory).createMediaSource(fileDataSource.uri)
+                return fileDataSource.uri?.let {
+                    ExtractorMediaSource.Factory(factory).createMediaSource(
+                        it
+                    )
+                }
             }
 
             VideoFrom.REMOTE -> {

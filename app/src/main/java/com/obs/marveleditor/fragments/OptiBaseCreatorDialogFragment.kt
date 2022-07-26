@@ -15,12 +15,12 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.DialogFragment
 import android.widget.Toast
 import com.github.hiteshsondhi88.libffmpeg.FFmpeg
 import java.io.File
 import android.webkit.MimeTypeMap
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.DialogFragment
 import com.obs.marveleditor.R
 
 abstract class OptiBaseCreatorDialogFragment : DialogFragment() {
@@ -55,7 +55,7 @@ abstract class OptiBaseCreatorDialogFragment : DialogFragment() {
         }
     }
 
-    override fun onCancel(dialog: DialogInterface?) {
+    override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
         stopRunningProcess()
     }

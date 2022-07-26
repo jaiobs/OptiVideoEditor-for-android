@@ -1,20 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /*
   ~ * Created by Optisol on Aug 2019.
   ~ * Copyright © 2019 Optisol Business Solutions pvt ltd. All rights reserved.
   ~ * */
   -->
 
-<android.support.v4.widget.NestedScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:background="@color/black">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -23,7 +21,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/exoPlayer"/>
+                app:layout_constraintBottom_toTopOf="@+id/exoPlayer" />
 
         <include
                 android:id="@+id/exoPlayer"
@@ -33,9 +31,9 @@
                 android:layout_marginTop="?android:attr/actionBarSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,7 +46,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -70,9 +68,9 @@
                     android:progressBackgroundTint="@color/light_blue"
                     android:indeterminateTint="@color/blue"
                     android:layout_marginTop="@dimen/_25sdp"
-                    style="?android:attr/progressBarStyleHorizontal"/>
+                    style="?android:attr/progressBarStyleHorizontal" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvVideoProcessing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,27 +78,27 @@
                     android:textColor="@color/white"
                     android:visibility="invisible"
                     android:text="@string/processing_video"
-                    android:layout_marginBottom="@dimen/_10sdp"/>
+                    android:layout_marginBottom="@dimen/_10sdp" />
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvVideoOptions"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_60sdp"
                 android:layout_marginTop="@dimen/_160sdp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        <android.support.constraint.Guideline
+        <androidx.constraintlayout.widget.Guideline
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/guideline"
                 app:layout_constraintGuide_percent="0.9"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal" />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/video_gallery_24"
@@ -111,9 +109,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/ibCamera"
                 app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/ibGallery"
-                android:contentDescription="@string/app_name"/>
+                android:contentDescription="@string/app_name" />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/video_camera_24"
@@ -124,8 +122,8 @@
                 app:layout_constraintStart_toEndOf="@+id/ibGallery"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/ibCamera"
-                android:contentDescription="@string/app_name"/>
+                android:contentDescription="@string/app_name" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>

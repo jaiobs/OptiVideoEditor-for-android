@@ -23,18 +23,20 @@ import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
 import android.provider.Settings
-import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.hiteshsondhi88.libffmpeg.FFmpeg
 import com.github.hiteshsondhi88.libffmpeg.FFmpegLoadBinaryResponseHandler
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException
@@ -44,6 +46,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.util.Util
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.obs.marveleditor.OptiVideoEditor
 import com.obs.marveleditor.utils.OptiCommonMethods
 import com.obs.marveleditor.utils.OptiConstant
@@ -70,10 +73,10 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
     private var permissionList: ArrayList<String> = ArrayList()
     private lateinit var preferences: SharedPreferences
     private lateinit var progressBar: ProgressBar
-    private var tvVideoProcessing: TextView? = null
+    private var tvVideoProcessing: AppCompatTextView? = null
     private var handler: Handler = Handler()
-    private var ibGallery: ImageButton? = null
-    private var ibCamera: ImageButton? = null
+    private var ibGallery: AppCompatImageButton? = null
+    private var ibCamera: AppCompatImageButton? = null
     private var masterVideoFile: File? = null
     private var playbackPosition: Long = 0
     private var currentWindow: Int = 0
@@ -86,10 +89,10 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
     private lateinit var optiVideoOptionsAdapter: OptiVideoOptionsAdapter
     private var videoOptions: ArrayList<String> = ArrayList()
     private var orientationLand: Boolean = false
-    private var tvSave: ImageView? = null
+    private var tvSave: AppCompatImageView? = null
     private var isLargeVideo: Boolean? = false
     private var mContext: Context? = null
-    private var tvInfo: TextView? = null
+    private var tvInfo: AppCompatTextView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.opti_video_processor_fragment, container, false)
@@ -184,16 +187,18 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
         }
 
         tvInfo?.setOnClickListener{
-            OptiVideoOptionFragment.newInstance().apply {
-                setHelper(this@OptiMasterProcessorFragment)
-            }.show(fragmentManager, "OptiVideoOptionFragment")
+            fragmentManager?.let { it1 ->
+                OptiVideoOptionFragment.newInstance().apply {
+                    setHelper(this@OptiMasterProcessorFragment)
+                }.show(it1, "OptiVideoOptionFragment")
+            }
         }
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         //for playing video in landscape mode
-        if (newConfig!!.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Log.v(tagName, "orientation: ORIENTATION_LANDSCAPE")
             orientationLand = true
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -207,7 +212,7 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
     }
 
     override fun onAudioFileProcessed(convertedAudioFile: File) {
-
+        //no implementation
     }
 
     override fun reInitPlayer() {
@@ -566,7 +571,7 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
                     }
                 }
             } catch (e: Exception) {
-
+                Log.v(tagName, "Exception: " + e.localizedMessage)
             }
         }
     }
@@ -607,11 +612,13 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
             tvInfo!!.visibility= View.GONE
 
             ePlayer?.useController = true
-            exoPlayer = ExoPlayerFactory.newSimpleInstance(
-                activity,
-                DefaultRenderersFactory(activity),
-                DefaultTrackSelector(), DefaultLoadControl()
-            )
+            exoPlayer = activity?.let {
+                ExoPlayerFactory.newSimpleInstance(
+                    it,
+                    DefaultRenderersFactory(activity!!),
+                    DefaultTrackSelector(), DefaultLoadControl()
+                )
+            }
 
             ePlayer?.player = exoPlayer
 
@@ -619,7 +626,11 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
 
             exoPlayer?.addListener(playerListener)
 
-            exoPlayer?.prepare(VideoUtils.buildMediaSource(Uri.fromFile(masterVideoFile), VideoFrom.LOCAL))
+            VideoUtils.buildMediaSource(Uri.fromFile(masterVideoFile), VideoFrom.LOCAL)?.let {
+                exoPlayer?.prepare(
+                    it
+                )
+            }
 
             exoPlayer?.seekTo(0)
 
@@ -630,16 +641,22 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
     }
 
     private val playerListener = object : Player.EventListener {
-        override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters?) {
+        override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
+            //no implementation
         }
 
         override fun onSeekProcessed() {
+            //no implementation
         }
 
-        override fun onTracksChanged(trackGroups: TrackGroupArray?, trackSelections: TrackSelectionArray?) {
+        override fun onTracksChanged(
+            trackGroups: TrackGroupArray,
+            trackSelections: TrackSelectionArray
+        ) {
+            //no implementation
         }
 
-        override fun onPlayerError(error: ExoPlaybackException?) {
+        override fun onPlayerError(error: ExoPlaybackException) {
             Log.v(tagName, "onPlayerError: ${error.toString()}")
             Toast.makeText(mContext, "Video format is not supported", Toast.LENGTH_LONG).show()
         }
@@ -649,17 +666,20 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
         }
 
         override fun onPositionDiscontinuity(reason: Int) {
+            //no implementation
         }
 
         override fun onRepeatModeChanged(repeatMode: Int) {
+            //no implementation
         }
 
         override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {
+            //no implementation
         }
 
-        override fun onTimelineChanged(timeline: Timeline?, manifest: Any?, reason: Int) {
+        /*override fun onTimelineChanged(timeline: Timeline, reason: Int) {
 
-        }
+        }*/
 
         override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
 
@@ -849,7 +869,7 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
     private fun showBottomSheetDialogFragment(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         val bundle = Bundle()
         bottomSheetDialogFragment.arguments = bundle
-        bottomSheetDialogFragment.show(fragmentManager, bottomSheetDialogFragment.tag)
+        fragmentManager?.let { bottomSheetDialogFragment.show(it, bottomSheetDialogFragment.tag) }
     }
 
     override fun videoOption(option: String) {
@@ -895,11 +915,13 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
                     /*val duration = OptiCommonMethods.convertDurationInSec(timeInMillis)
                     Log.v(tagName, "videoDuration: $duration")*/
 
-                    OptiAddMusicFragment.newInstance().apply {
-                        setHelper(this@OptiMasterProcessorFragment)
-                        setFilePathFromSource(file)
-                        setDuration(timeInMillis)
-                    }.show(fragmentManager, "OptiAddMusicFragment")
+                    fragmentManager?.let {
+                        OptiAddMusicFragment.newInstance().apply {
+                            setHelper(this@OptiMasterProcessorFragment)
+                            setFilePathFromSource(file)
+                            setDuration(timeInMillis)
+                        }.show(it, "OptiAddMusicFragment")
+                    }
                 }
 
                 if (masterVideoFile == null) {
@@ -916,10 +938,12 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
                     playbackPosition = 0
                     currentWindow = 0
 
-                    OptiPlaybackSpeedDialogFragment.newInstance().apply {
-                        setHelper(this@OptiMasterProcessorFragment)
-                        setFilePathFromSource(file)
-                    }.show(fragmentManager, "OptiPlaybackSpeedDialogFragment")
+                    fragmentManager?.let {
+                        OptiPlaybackSpeedDialogFragment.newInstance().apply {
+                            setHelper(this@OptiMasterProcessorFragment)
+                            setFilePathFromSource(file)
+                        }.show(it, "OptiPlaybackSpeedDialogFragment")
+                    }
                 }
 
                 if (masterVideoFile == null) {
@@ -963,9 +987,11 @@ class OptiMasterProcessorFragment : Fragment(), OptiBaseCreatorDialogFragment.Ca
             }
 
             OptiConstant.MERGE -> {
-                OptiMergeFragment.newInstance().apply {
-                    setHelper(this@OptiMasterProcessorFragment)
-                }.show(fragmentManager, "OptiMergeFragment")
+                fragmentManager?.let {
+                    OptiMergeFragment.newInstance().apply {
+                        setHelper(this@OptiMasterProcessorFragment)
+                    }.show(it, "OptiMergeFragment")
+                }
             }
 
             OptiConstant.TRANSITION -> {
