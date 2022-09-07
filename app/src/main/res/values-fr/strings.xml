@@ -1,0 +1,56 @@
+<!--
+  ~ /*
+  ~ * Created by Optisol on Aug 2019.
+  ~ * Copyright © 2019 Optisol Business Solutions pvt ltd. All rights reserved.
+  ~ * */
+  -->
+
+<resources>
+    <string name="app_name">MarvelEditor</string>
+
+    <string name="video_editing">MarvelEditor</string>
+    <string name="save">Enregistrer</string>
+    <string name="processing_video">Traitement de la vidéo</string>
+    <string name="video_1">Vidéo 1</string>
+    <string name="video_2">Vidéo 2</string>
+    <string name="select_music">Sélectionnez la musique</string>
+    <string name="label">Étiquette</string>
+
+    <string name="error_filter">Sélectionnez la vidéo à laquelle vous souhaitez ajouter un filtre d\'animation</string>
+    <string name="error_crop">Sélectionnez la vidéo que vous souhaitez recadree</string>
+    <string name="error_music">Sélectionnez la vidéo dont vous souhaitez fusionner l\'audio</string>
+    <string name="error_speed">Sélectionnez la vidéo à laquelle vous souhaitez ajouter une animation de vitesse</string>
+    <string name="error_text">Sélectionnez la vidéo à laquelle vous souhaitez ajouter du texte</string>
+    <string name="error_sticker">Sélectionnez la vidéo à laquelle vous souhaitez ajouter un autocollant</string>
+    <string name="error_merge">Sélectionnez deux vidéos que vous souhaitez fusionner</string>
+    <string name="error_transition">Sélectionnez la vidéo dont vous souhaitez effectuer la transition</string>
+
+    <string name="error_select_sticker">Sélectionnez l\'autocollant que vous souhaitez afficher dans la vidéo</string>
+    <string name="error_select_sticker_pos">Sélectionnez la position où vous souhaitez afficher l\'autocollant</string>
+    <string name="error_add_text">Ajoutez le texte que vous souhaitez afficher dans la vidéo</string>
+    <string name="error_add_text_pos">Sélectionnez la position où vous souhaitez afficher le texte</string>
+    <string name="error_select_speed">Sélectionnez la vitesse de lecture que vous souhaitez appliquer à la vidéo</string>
+    <string name="error_select_filter">Sélectionnez le filtre que vous souhaitez appliquer à la vidéo</string>
+    <string name="error_select_smaller_video">Sélectionnez une vidéo de moins de quatre minutes</string>
+    <string name="play_time">Temps de lecture</string>
+    <string name="enter_text_here">Saisissez le texte ici</string>
+
+    <string name="save_video">Souhaitez-vous enregistrer votre vidéo modifiée ?</string>
+    <string name="Continue">Continuer</string>
+    <string name="successfully_saved">Votre vidéo a été correctement enregistrée</string>
+
+    <string name="not_supported_video">Le format vidéo n\'est pas pris en charge. Souhaitez-vous convertir le format avi en format mp4 ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+
+    <string name="short_seconds">sec</string>
+    <string name="megabyte">MB</string>
+    <string name="kilobyte">KB</string>
+    <string name="trimming_progress">Découpage de votre vidéo…</string>
+    <string name="cancel">Annuler</string>
+    <string name="select_a_video">Sélectionnez une vidéo</string>
+    <string name="select_action">Sélectionner une action</string>
+    <string name="select_video_from_gallery">Sélectionnez une vidéo dans la galerie</string>
+    <string name="record_video_from_camera">Enregistrer une vidéo à partir de la caméra</string>
+</resources>
+
